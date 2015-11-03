@@ -1,17 +1,20 @@
+package client;
+
 import java.io.*;
 import java.net.*;
 
 public class Client {
     public static void main(String[] args) throws IOException {
 
-        String hostName = "83838383838383838";
+        String hostName = "0.0.0.0";
         int portNumber = 6669;
 
-        try (Socket kkSocket = new Socket(hostName, portNumber);
-                PrintWriter out = new PrintWriter(kkSocket.getOutputStream(),
+        try {
+            Socket kkSocket = new Socket(hostName, portNumber);
+            PrintWriter out = new PrintWriter(kkSocket.getOutputStream(),
                         true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        kkSocket.getInputStream()));) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                        kkSocket.getInputStream()));
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(
                     System.in));
             String fromServer;

@@ -6,28 +6,30 @@
 	- lister tous les enregistrements
 	- afficher un enregistrement
 	- effacer un enregistrement
-	- effacer un surnom 
+	- effacer un surnom
+	- se déconnecter
 
 
 2. Nous avons tiré au sort la sérialisation en chaîne.
 
 3. Protocole d'application
 
+PORT : 6669
 Voici comment le client et le serveur structurent les données échangées:
 
 Format de requête : METHODE (PARAMETRE="VALEUR")*
 
 Pour enregistrer un nom et ses surnoms associés:
 	Client : SAVE NAME="name" (SURNAME="surname")+
-	Serveur : SAVE (ANSWER="OK") | (ANSWER="FAILED")
+	Serveur : SAVE (ANSWER="OK") | (ANSWER="FAILED - NAME ALREADY EXISTS")
 
 Pour modifier un surnom d'une personne donnée:
 	Client : UPDATE NAME="name" SURNAME="old" NEWSURNAME="new"
-	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED")
+	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") | (ANSWER="FAILED - SURNAME DOESN'T EXIST")
 
 Pour ajouter un surnom à une personne donnée:
 	Client : UPDATE NAME="name" SURNAME="surname"
-	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED") 
+	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") 
 
 Pour lister les enregistrements:
 	Client : DISPLAY
@@ -35,16 +37,19 @@ Pour lister les enregistrements:
 
 Pour afficher un seul enregistrement:
 	Client : DISPLAY NAME="name"
-	Serveur : DISPLAY ((ANSWER="OK") | (ANSWER="FAILED")) MSG="name: surname1, surname2...\n"
+	Serveur : DISPLAY ((ANSWER="OK" MSG="name: surname1, surname2...\n") | (ANSWER="FAILED - NAME DOESN'T EXIST")) 
 
 Pour effacer un enregistrement:
 	Client : DELETE NAME="name"
-	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED")
+	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST")
 	
 Pour effacer un surnom:
 	Client : DELETE NAME="name" SURNAME="surname"
-	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED")
+	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") | (ANSWER="FAILED - SURNAME DOESN'T EXIST")
 
+Pour se déconnecter:
+    Client: DISCONNECT
+    Serveur : DISCONNECT (ANSWER="OK") | (ANSWER="FAILED")
 
 
 	
