@@ -1,8 +1,8 @@
-package Server;
+package client;
 
 /**
  * @author Lucas MARTINEZ
  * @version 03/11/15
  */
-public class Server {
+public class Client {
 }
