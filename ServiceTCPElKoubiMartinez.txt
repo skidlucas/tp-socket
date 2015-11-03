@@ -48,8 +48,8 @@ Pour effacer un surnom:
 	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") | (ANSWER="FAILED - SURNAME DOESN'T EXIST")
 
 Pour se déconnecter:
-    Client: DISCONNECT
-    Serveur : DISCONNECT (ANSWER="OK") | (ANSWER="FAILED")
+    Client: STOP
+    Serveur : STOP (ANSWER="OK") | (ANSWER="FAILED")
 
 
 	

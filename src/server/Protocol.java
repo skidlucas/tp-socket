@@ -5,6 +5,7 @@ package server;
  * @version 03/11/15
  */
 public class Protocol {
+    //toute la classe provient du tuto oracle
     private static final int WAITING = 0;
     private static final int SENTKNOCKKNOCK = 1;
     private static final int SENTCLUE = 2;

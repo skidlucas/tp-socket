@@ -19,30 +19,28 @@ public class Server {
     private static int port = 6669;
 
     public Server() {
-        serverSocket = null;
-        /*try {
-            InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            System.err.println("Adresse locale introuvable");
-            System.exit(-1);
+        try {
+            serverSocket = new ServerSocket(Server.port);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        System.out.println("Création du serveur réussie ... "); */
+        System.out.println("Création du serveur réussie...");
     }
 
     private void start() {
-        try {
-            serverSocket = new ServerSocket(Server.port);
-            System.out.println(serverSocket.getInetAddress() + ":" + serverSocket.getLocalPort());
-            Socket clientSocket = serverSocket.accept();
-            PrintWriter out =
-                    new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
+        try (
+                Socket clientSocket = serverSocket.accept();
+                PrintWriter out =
+                        new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
+        ) {
 
             String inputLine, outputLine;
 
             // Initiate conversation with client
+            // Tout ce qui suit provient du tuto oracle
             Protocol kkp = new Protocol();
             outputLine = kkp.processInput(null);
             out.println(outputLine);
@@ -59,7 +57,6 @@ public class Server {
             System.out.println(e.getMessage());
         }
 
-        //System.out.println("Serveur lancé (" + serverSocket.getInetAddress() + ":" + serverSocket.getLocalPort() + ")");
     }
 
     public static void main(String[] args) {
