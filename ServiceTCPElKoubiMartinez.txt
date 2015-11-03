@@ -1,0 +1,50 @@
+1. Liste des différentes requêtes/services :
+
+	- enregistrer un nom et ses surnoms associés:
+	- modifier un surnom d'une personne
+	- ajouter un surnom à une personne
+	- lister tous les enregistrements
+	- afficher un enregistrement
+	- effacer un enregistrement
+	- effacer un surnom 
+
+
+2. Nous avons tiré au sort la sérialisation en chaîne.
+
+3. Protocole d'application
+
+Voici comment le client et le serveur structurent les données échangées:
+
+Format de requête : METHODE (PARAMETRE="VALEUR")*
+
+Pour enregistrer un nom et ses surnoms associés:
+	Client : SAVE NAME="name" (SURNAME="surname")+
+	Serveur : SAVE (ANSWER="OK") | (ANSWER="FAILED")
+
+Pour modifier un surnom d'une personne donnée:
+	Client : UPDATE NAME="name" SURNAME="old" NEWSURNAME="new"
+	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED")
+
+Pour ajouter un surnom à une personne donnée:
+	Client : UPDATE NAME="name" SURNAME="surname"
+	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED") 
+
+Pour lister les enregistrements:
+	Client : DISPLAY
+	Serveur : DISPLAY ANSWER="OK" MSG="(name1: surname1, surname2...\n)*"
+
+Pour afficher un seul enregistrement:
+	Client : DISPLAY NAME="name"
+	Serveur : DISPLAY ((ANSWER="OK") | (ANSWER="FAILED")) MSG="name: surname1, surname2...\n"
+
+Pour effacer un enregistrement:
+	Client : DELETE NAME="name"
+	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED")
+	
+Pour effacer un surnom:
+	Client : DELETE NAME="name" SURNAME="surname"
+	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED")
+
+
+
+	
