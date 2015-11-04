@@ -6,7 +6,7 @@ package server;
  */
 public enum Command {
 
-    SAVE("SAVE"), UPDATE("UPDATE"), DISPLAY("DISPLAY"), DELETE("DELETE"), STOP("STOP");
+    WELCOME("WELCOME"), SAVE("SAVE"), UPDATE("UPDATE"), DISPLAY("DISPLAY"), DELETE("DELETE"), STOP("STOP");
     String name;
 
     Command (String str){
@@ -17,5 +17,12 @@ public enum Command {
     public String toString()
     {
         return name;
+    }
+
+    public static Command toCommand(String str) {
+        for (Command c : values())
+            if (str.toUpperCase().equals(c.toString()))
+                return c;
+        return null; //temporaire (exception)
     }
 }

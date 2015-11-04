@@ -20,7 +20,7 @@ Voici comment le client et le serveur structurent les données échangées:
 Format de requête : METHODE (PARAMETRE="VALEUR")*
 
 Pour enregistrer un nom et ses surnoms associés:
-	Client : SAVE NAME="name" (SURNAME="surname")+
+	Client : SAVE NAME="name" SURNAME="surname"
 	Serveur : SAVE (ANSWER="OK") | (ANSWER="FAILED - NAME ALREADY EXISTS")
 
 Pour modifier un surnom d'une personne donnée:

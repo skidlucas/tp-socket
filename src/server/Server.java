@@ -1,13 +1,7 @@
 package server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * @author Lucas MARTINEZ
@@ -25,36 +19,19 @@ public class Server {
             e.printStackTrace();
         }
 
-        System.out.println("Création du serveur réussie...");
+        System.out.println("Server successfully created...");
     }
 
     private void start() {
-        try (
-                Socket clientSocket = serverSocket.accept();
-                PrintWriter out =
-                        new PrintWriter(clientSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
-        ) {
+        boolean listening = true;
 
-            String inputLine, outputLine;
-
-            // Initiate conversation with client
-            // Tout ce qui suit provient du tuto oracle
-            Protocol kkp = new Protocol();
-            outputLine = kkp.processInput(null);
-            out.println(outputLine);
-
-            while ((inputLine = in.readLine()) != null) {
-                outputLine = kkp.processInput(inputLine);
-                out.println(outputLine);
-                if (outputLine.equals("Bye."))
-                    break;
+        try {
+            while (listening) {
+                new ServerThread(serverSocket.accept()).start();
             }
         } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                    + Server.port + " or listening for a connection");
-            System.out.println(e.getMessage());
+            System.err.println("Could not listen on port " + Server.port);
+            System.exit(-1);
         }
 
     }
