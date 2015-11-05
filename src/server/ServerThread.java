@@ -31,7 +31,7 @@ public class ServerThread extends Thread{
             while ((inputLine = in.readLine()) != null) {
                 outputLine = protocol.processInput(inputLine);
                 out.println(outputLine);
-                if (outputLine.equals("Bye"))
+                if (outputLine.equals("STOP OK"))
                     break;
             }
             client.close();

@@ -1,5 +1,8 @@
 package server;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * @author Lucas MARTINEZ
  * @version 03/11/15
@@ -7,10 +10,19 @@ package server;
 public class Protocol {
     private static final int WAITING = 0;
     private static final int WELCOME = 1;
+    private SurnameManager surnameManager;
 
     private int state = WAITING;
 
+    public Protocol(){
+        surnameManager = new SurnameManager();
+    }
 
+    /**
+     * Permet de traiter l'input du client, délègue la gestion de la requête à handle()
+     * @param theInput
+     * @return la string envoyée par le serveur
+     */
     public String processInput(String theInput) {
         Request request = new Request(theInput);
         String theOutput = null;
@@ -25,18 +37,32 @@ public class Protocol {
     }
 
     /**
-     * Sauvegarde le surnom au nom donné
+     * Sauvegarde le surnom surname pour le nom name
      * @param name
      * @param surname
      * @return la string envoyée par le serveur
      */
     private String save(String name, String surname){
-        String output = null;
-        //todo vraie sauvegarde des noms (avec try/catch et nos exceptions)
-        System.out.println(name + surname); //temporaire
-        output = "SAVE OK";  //temporaire
-        return output;
+        return surnameManager.save(name, surname);
+    }
 
+    /**
+     * Met à jour le surnom surname en newsurname pour le nom name
+     * @param name
+     * @param surname
+     * @param newsurname
+     * @return la string envoyée par le serveur
+     */
+    private String update(String name, String surname, String newsurname){
+        return surnameManager.update(name, surname, newsurname);
+    }
+
+    private String display(String name){
+        return surnameManager.display(name);
+    }
+
+    private String delete(String name, String surname){
+        return surnameManager.delete(name, surname);
     }
 
     /**
@@ -45,26 +71,28 @@ public class Protocol {
      * @return
      */
     private String handle(Request request){
+        if (request.getCommand() == null){
+            return "Unknown Command. Try again.";
+        }
         switch(request.getCommand()){
             case SAVE: {
                 return save(request.getValue("NAME"), request.getValue("SURNAME"));
             }
             case UPDATE: {
-                //todo
-
+                return update(request.getValue("NAME"), request.getValue("SURNAME"),
+                        request.getValue("NEWSURNAME"));
             }
             case DISPLAY: {
-                //todo
+                return display(request.getValue("NAME"));
 
             }
             case DELETE: {
-                //todo
-
+                return delete(request.getValue("NAME"), request.getValue("SURNAME"));
             }
             case STOP: {
-                return "Bye.";
+                return "STOP OK";
             }
-            default: return "Bye.";
+            default: return "STOP OK";
         }
     }
 }

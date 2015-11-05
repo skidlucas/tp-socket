@@ -50,11 +50,12 @@ public class Request {
 
         switch(command){
             case SAVE: {
-                System.out.println("test OK");
+                System.out.println("save test OK"); //tmp
                 //todo
                 break;
             }
             case UPDATE: {
+                System.out.println("update test OK"); //tmp
                 //todo
                 break;
             }

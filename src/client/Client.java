@@ -29,7 +29,7 @@ public class Client {
 
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
-                if (fromServer.equals("Bye."))
+                if (fromServer.equals("STOP OK"))
                     break;
 
                 fromUser = stdIn.readLine();

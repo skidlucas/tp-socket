@@ -21,35 +21,35 @@ Format de requête : METHODE (PARAMETRE="VALEUR")*
 
 Pour enregistrer un nom et ses surnoms associés:
 	Client : SAVE NAME="name" SURNAME="surname"
-	Serveur : SAVE (ANSWER="OK") | (ANSWER="FAILED - NAME ALREADY EXISTS")
+	Serveur : SAVE ("OK NAME=[SURNAME]") | ("FAILED NAME ALREADY EXISTS")
 
-Pour modifier un surnom d'une personne donnée:
+Pour modifier un surnom d'une personne donnée: (si "old" n'existe pas, ajoute quand même "new")
 	Client : UPDATE NAME="name" SURNAME="old" NEWSURNAME="new"
-	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") | (ANSWER="FAILED - SURNAME DOESN'T EXIST")
+	Serveur : UPDATE ("OK NAME=[SURNAMES]") | ("FAILED NAME DOESN'T EXIST")
 
 Pour ajouter un surnom à une personne donnée:
 	Client : UPDATE NAME="name" SURNAME="surname"
-	Serveur : UPDATE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") 
+	Serveur : UPDATE ("OK") | ("FAILED NAME DOESN'T EXIST")
 
 Pour lister les enregistrements:
 	Client : DISPLAY
-	Serveur : DISPLAY ANSWER="OK" MSG="(name1: surname1, surname2...\n)*"
+	Serveur : DISPLAY "OK (NAME=[surname1, surname2...] )*"
 
 Pour afficher un seul enregistrement:
 	Client : DISPLAY NAME="name"
-	Serveur : DISPLAY ((ANSWER="OK" MSG="name: surname1, surname2...\n") | (ANSWER="FAILED - NAME DOESN'T EXIST")) 
+	Serveur : DISPLAY ("OK NAME=[surname1, surname2...]") | ("FAILED NAME DOESN'T EXIST"))
 
 Pour effacer un enregistrement:
 	Client : DELETE NAME="name"
-	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST")
+	Serveur : DELETE ("OK") | ("FAILED NAME DOESN'T EXIST")
 	
 Pour effacer un surnom:
 	Client : DELETE NAME="name" SURNAME="surname"
-	Serveur : DELETE (ANSWER="OK") | (ANSWER="FAILED - NAME DOESN'T EXIST") | (ANSWER="FAILED - SURNAME DOESN'T EXIST")
+	Serveur : DELETE ("OK NAME") | ("FAILED NAME DOESN'T EXIST") | ("FAILED SURNAME DOESN'T EXIST")
 
 Pour se déconnecter:
     Client: STOP
-    Serveur : STOP (ANSWER="OK") | (ANSWER="FAILED")
+    Serveur : STOP ("OK") | ("FAILED")
 
 
 	
