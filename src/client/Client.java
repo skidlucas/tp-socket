@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
-    private static final String HOSTNAME = "localhost";
+    private static final String HOSTNAME = "1O.212.102.229";
     private static final int PORT = 6669;
     private Socket clientSocket;
 
