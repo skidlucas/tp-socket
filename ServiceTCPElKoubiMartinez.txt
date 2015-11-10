@@ -1,6 +1,6 @@
 1. Liste des différentes requêtes/services :
 
-	- enregistrer un nom et ses surnoms associés:
+	- enregistrer un nom et son surnom associé
 	- modifier un surnom d'une personne
 	- ajouter un surnom à une personne
 	- lister tous les enregistrements
@@ -21,11 +21,11 @@ Format de requête : METHODE (PARAMETRE="VALEUR")*
 
 Pour enregistrer un nom et ses surnoms associés:
 	Client : SAVE NAME="name" SURNAME="surname"
-	Serveur : SAVE ("OK NAME=[SURNAME]") | ("FAILED NAME ALREADY EXISTS")
+	Serveur : SAVE ("OK NAME=[surname]") | ("FAILED NAME ALREADY EXISTS")
 
 Pour modifier un surnom d'une personne donnée: (si "old" n'existe pas, ajoute quand même "new")
 	Client : UPDATE NAME="name" SURNAME="old" NEWSURNAME="new"
-	Serveur : UPDATE ("OK NAME=[SURNAMES]") | ("FAILED NAME DOESN'T EXIST")
+	Serveur : UPDATE ("OK NAME=[surname1, surname2...]") | ("FAILED NAME DOESN'T EXIST")
 
 Pour ajouter un surnom à une personne donnée:
 	Client : UPDATE NAME="name" SURNAME="surname"
