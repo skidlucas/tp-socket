@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
-    private static final String HOSTNAME = "1O.212.102.229";
+    private static final String HOSTNAME = "10.212.102.229";
     private static final int PORT = 6669;
     private Socket clientSocket;
 
@@ -21,7 +21,7 @@ public class Client {
         try (
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
+                        new InputStreamReader(clientSocket.getInputStream()))
         ) {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
