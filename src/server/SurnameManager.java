@@ -1,5 +1,7 @@
 package server;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,10 +13,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SurnameManager {
     private ConcurrentHashMap<String, LinkedList<String>> surnames;
+    private LinkedList<String> listSurnames = new LinkedList<>();
 
     public SurnameManager(){
         surnames = new ConcurrentHashMap<>();
         firstSurnames();
+        for (LinkedList<String> list : surnames.values()){
+            listSurnames.addAll(list);
+        }
     }
 
     /**
@@ -35,8 +41,11 @@ public class SurnameManager {
         String str;
         if (surnames.containsKey(name)){
             str = "SAVE FAILED " + name + " ALREADY EXISTS";
+        } else if (listSurnames.contains(surname)) {
+            str = "SAVE FAILED " + surname + " ALREADY EXISTS";
         } else {
             surnames.putIfAbsent(name, new LinkedList<>(Arrays.asList(surname)));
+            listSurnames.add(surname);
             str = "SAVE OK " + name + "=[" + surname + "]";
         }
         System.out.println(surnames); //temp
@@ -55,12 +64,18 @@ public class SurnameManager {
             return "UPDATE FAILED " + name + " DOESN'T EXIST";
         } else {
             LinkedList<String> values = surnames.get(name); //on récup les surnoms de name
-            if (values.contains(surname)){
+
+            if (values.contains(surname) && !listSurnames.contains(newsurname)){
                 values.remove(surname);
+                surnames.put(name, values);
             }
-            surnames.put(name, values);
+
             if (newsurname == null){
                 newsurname = surname;
+            }
+
+            if (listSurnames.contains(newsurname)) {
+                return "UPDATE FAILED " + newsurname + " ALREADY EXISTS";
             }
             return update(name, newsurname);
         }
@@ -76,6 +91,7 @@ public class SurnameManager {
         LinkedList<String> values = surnames.get(name); //on récup les surnoms de name
         values.add(surname); //on ajoute le nouveau à la liste
         surnames.put(name, values); //on met les surnoms à jour
+        listSurnames.add(surname);
         System.out.println(surnames); //temp
         return "UPDATE OK " + name + "=" + values;
     }
@@ -103,13 +119,16 @@ public class SurnameManager {
     public String delete(String name, String surname){
         if (surnames.containsKey(name)) {
             if (surname == null) {
+                LinkedList<String> list = surnames.get(name);
                 surnames.remove(name);
+                listSurnames.removeAll(list);
                 return "DELETE OK " + name;
             }
 
             LinkedList<String> values = surnames.get(name);
             if (values.contains(surname)){
                 values.remove(surname);
+                listSurnames.remove(surname);
                 surnames.put(name, values);
                 return "DELETE OK " + surname;
             }
