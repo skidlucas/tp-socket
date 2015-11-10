@@ -59,6 +59,8 @@ public class SurnameManager {
     public String update(String name, String surname, String newsurname){
         if (!surnames.containsKey(name)){
             return "UPDATE FAILED " + name + " DOESN'T EXIST";
+        } else if (!listSurnames.contains(surname) && newsurname != null) {
+            return "UPDATE FAILED " + surname + " DOESN'T EXIST";
         } else {
             LinkedList<String> values = surnames.get(name); //on récup les surnoms de name
 
