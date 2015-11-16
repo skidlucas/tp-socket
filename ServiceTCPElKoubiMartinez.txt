@@ -23,6 +23,7 @@ Voici comment le client et le serveur structurent les données échangées:
 
 Format de requête : METHODE (PARAMETRE="VALEUR")*
 METHODE et PARAMETRE ne sont pas sensibles à la casse, VALEUR oui.
+L'ordre des "PARAMETRES=VALEUR" est fourni à titre indicatif et n'est pas obligatoire, seul le nom de la méthode doit se trouver en premier.
 
 Pour enregistrer un nom et ses surnoms associés:
 	Client : SAVE NAME="name" SURNAME="surname"
@@ -76,6 +77,9 @@ Pour effacer un surnom:
 Pour se déconnecter:
     Client: STOP
     Serveur : STOP ("OK") | ("FAILED")
+        *** Exemple ***
+        Client : STOP
+        Serveur : STOP OK
 
 
 	
