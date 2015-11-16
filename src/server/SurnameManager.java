@@ -35,6 +35,7 @@ public class SurnameManager {
      * @return
      */
     public String save(String name, String surname){
+        System.out.println("SAVE"); //pour le serveur
         String str;
         if (surnames.containsKey(name)){
             str = "SAVE FAILED " + name + " ALREADY EXISTS";
@@ -57,6 +58,7 @@ public class SurnameManager {
      * @return la string envoyée par le serveur
      */
     public String update(String name, String surname, String newsurname){
+        System.out.println("UPDATE"); //pour le serveur
         if (!surnames.containsKey(name)){
             return "UPDATE FAILED " + name + " DOESN'T EXIST";
         } else if (!listSurnames.contains(surname) && newsurname != null) {
@@ -66,6 +68,7 @@ public class SurnameManager {
 
             if (values.contains(surname) && !listSurnames.contains(newsurname)){
                 values.remove(surname);
+                listSurnames.remove(surname);
                 surnames.put(name, values);
             }
 
@@ -102,6 +105,7 @@ public class SurnameManager {
      * @return la string envoyée par le serveur
      */
     public String display(String name){
+        System.out.println("DISPLAY"); //pour le serveur
         String str = "";
         if (name == null){
             for(String n : surnames.keySet()){
@@ -112,15 +116,18 @@ public class SurnameManager {
         } else {
             str += name + "=" + surnames.get(name);
         }
+
         return "DISPLAY OK " + str;
     }
 
     public String delete(String name, String surname){
+        System.out.println("DELETE"); //pour le serveur
         if (surnames.containsKey(name)) {
             if (surname == null) {
                 LinkedList<String> list = surnames.get(name);
                 surnames.remove(name);
                 listSurnames.removeAll(list);
+                System.out.println(surnames); //temp
                 return "DELETE OK " + name;
             }
 
@@ -129,6 +136,7 @@ public class SurnameManager {
                 values.remove(surname);
                 listSurnames.remove(surname);
                 surnames.put(name, values);
+                System.out.println(surnames); //temp
                 return "DELETE OK " + surname;
             }
             return "DELETE FAILED " + surname + " DOESN'T EXIST";

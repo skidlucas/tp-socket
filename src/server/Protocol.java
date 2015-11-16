@@ -71,21 +71,37 @@ public class Protocol {
         if (request.getCommand() == null){
             return "Unknown Command. Try again.";
         }
+        int nbParam = request.getListParameters().size();
         switch(request.getCommand()){
             case SAVE: {
+                if (nbParam != 2)
+                    return "Wrong number of arguments. Try again.";
+
                 return save(request.getValue("NAME"), request.getValue("SURNAME"));
             }
-            case UPDATE: {
-                return update(request.getValue("NAME"), request.getValue("SURNAME"),
-                        request.getValue("NEWSURNAME"));
-            }
-            case DISPLAY: {
-                return display(request.getValue("NAME"));
 
+            case UPDATE: {
+                if (nbParam == 2 || nbParam == 3)
+                    return update(request.getValue("NAME"), request.getValue("SURNAME"),
+                            request.getValue("NEWSURNAME"));
+
+                return "Wrong number of arguments. Try again.";
             }
+
+            case DISPLAY: {
+                if (nbParam == 0 || nbParam == 1)
+                    return display(request.getValue("NAME"));
+
+                return "Wrong number of arguments. Try again.";
+            }
+
             case DELETE: {
-                return delete(request.getValue("NAME"), request.getValue("SURNAME"));
+                if (nbParam == 1 || nbParam == 2)
+                    return delete(request.getValue("NAME"), request.getValue("SURNAME"));
+
+                return "Wrong number of arguments. Try again.";
             }
+
             case STOP: {
                 return "STOP OK";
             }

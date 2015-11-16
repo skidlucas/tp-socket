@@ -10,7 +10,7 @@ public class Request {
     private Command command;
     private LinkedList<String[]> listParameters;
 
-    public Request(String str){
+    public Request(String str) {
 
         String tokens[] = str.split(" ");
         try {
@@ -18,7 +18,8 @@ public class Request {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (command != Command.WELCOME) {
+
+        if (command != Command.WELCOME && command != null) {
             listParameters = new LinkedList<>();
             for (int i = 1; i < tokens.length; ++i) {
                 String parameters[] = tokens[i].split("=");
@@ -34,46 +35,7 @@ public class Request {
                 String[] couple = {nameParam.toUpperCase(), value}; //crée un couple ("PARAM", "valeur")
                 listParameters.add(couple); //ajoute ce couple à la liste des params
             }
-
-            try {
-                checkRequest();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-    }
-
-    /**
-     * Permet de vérifier le format de la requête en fonction de la commande
-     */
-    private void checkRequest() {
-
-        switch(command){
-            case SAVE: {
-                System.out.println("save test OK"); //tmp
-                //todo
-                break;
-            }
-            case UPDATE: {
-                System.out.println("update test OK"); //tmp
-                //todo
-                break;
-            }
-            case DISPLAY: {
-                //todo
-                break;
-            }
-            case DELETE: {
-                //todo
-                break;
-            }
-            case STOP: {
-                //todo
-                break;
-            }
-            default: break;
-        }
-
     }
 
     public Command getCommand() {
@@ -92,5 +54,9 @@ public class Request {
             }
         }
         return null;
+    }
+
+    public LinkedList<String[]> getListParameters() {
+        return listParameters;
     }
 }
