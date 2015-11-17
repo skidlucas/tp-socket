@@ -70,6 +70,7 @@ public class Protocol {
      */
     private String handle(Request request){
         if (request.getCommand() == null){
+            System.out.println();
             return "Unknown Command. Try again.";
         }
         int nbParam = request.getListParameters().size();

@@ -30,6 +30,7 @@ public class ServerThread extends Thread{
 
             while ((inputLine = in.readLine()) != null) {
                 outputLine = protocol.processInput(inputLine);
+                System.out.println(inputLine); //voir ce qu'on nous envoie sur le serv
                 out.println(outputLine);
                 if (outputLine.equals("STOP OK"))
                     break;
