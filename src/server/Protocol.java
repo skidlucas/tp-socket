@@ -25,7 +25,8 @@ public class Protocol {
         String theOutput = null;
 
         if (state == WAITING) {
-            theOutput = "Welcome to this awesome surname server. Please type your request.";
+            theOutput = "Welcome to our surname server. Here are the available commands : SAVE, UPDATE, DISPLAY," +
+                    " DELETE, STOP. " + "Please type your request.";
             state = WELCOME;
         } else if (state == WELCOME) {
             theOutput = handle(request);

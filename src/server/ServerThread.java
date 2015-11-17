@@ -34,7 +34,9 @@ public class ServerThread extends Thread{
                 if (outputLine.equals("STOP OK"))
                     break;
             }
+
             client.close();
+            System.out.println("Client disconnected.");
         } catch (IOException e) {
             e.printStackTrace();
         }
