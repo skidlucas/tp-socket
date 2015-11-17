@@ -26,21 +26,21 @@ METHODE et PARAMETRE ne sont pas sensibles à la casse, VALEUR oui.
 
 
 Pour enregistrer un nom et ses surnoms associés:
-	Client : SAVE NAME="name" SURNAME="surname"
+	Client : SAVE NAME=name SURNAME=surname
 	Serveur : SAVE ("OK NAME=[surname]") | ("FAILED NAME ALREADY EXISTS")
 		*** Exemple ***  
 		Client : SAVE NAME=Lucas SURNAME=Lulu
 		Serveur : SAVE OK Lucas=[Lulu]
 
-Pour modifier un surnom d'une personne donnée: (si "old" n'existe pas, ajoute quand même "new")
-	Client : UPDATE NAME="name" SURNAME="old" NEWSURNAME="new"
+Pour modifier un surnom d'une personne donnée:
+	Client : UPDATE NAME=name SURNAME=old NEWSURNAME=new
 	Serveur : UPDATE ("OK NAME=[surname1, surname2...]") | ("FAILED NAME DOESN'T EXIST")
 		*** Exemple ***  
 		Client : UPDATE NAME=Lucas SURNAME=Lulu NEWSURNAME=Marti
 		Serveur : UPDATE OK Lucas=[Marti]
 
 Pour ajouter un surnom à une personne donnée:
-	Client : UPDATE NAME="name" SURNAME="surname"
+	Client : UPDATE NAME=name SURNAME=surname
 	Serveur : UPDATE ("OK") | ("FAILED NAME DOESN'T EXIST")
 		*** Exemple ***  
 		Client : UPDATE NAME=Lucas SURNAME=Lulu
@@ -54,21 +54,21 @@ Pour lister les enregistrements:
 		Serveur : DISPLAY OK Lucas=[Marti, Lulu]
 
 Pour afficher un seul enregistrement:
-	Client : DISPLAY NAME="name"
+	Client : DISPLAY NAME=name
 	Serveur : DISPLAY ("OK NAME=[surname1, surname2...]") | ("FAILED NAME DOESN'T EXIST"))
 		*** Exemple ***
 		Client : DISPLAY NAME=Ugo
 		Serveur : DISPLAY FAILED Ugo DOESN'T EXIST
 
 Pour effacer un enregistrement:
-	Client : DELETE NAME="name"
+	Client : DELETE NAME=name
 	Serveur : DELETE ("OK") | ("FAILED NAME DOESN'T EXIST")
 		*** Exemple ***
 		Client : DELETE NAME=Lucas
 		Serveur : DELETE OK Lucas
 	
 Pour effacer un surnom:
-	Client : DELETE NAME="name" SURNAME="surname"
+	Client : DELETE NAME=name SURNAME=surname
 	Serveur : DELETE ("OK NAME") | ("FAILED NAME DOESN'T EXIST") | ("FAILED SURNAME DOESN'T EXIST")
 		*** Exemple ***
 		Client : DELETE NAME=Lucas SURNAME=Marti
