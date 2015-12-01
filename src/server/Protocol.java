@@ -7,6 +7,8 @@ package server;
 public class Protocol {
     private static final int WAITING = 0;
     private static final int WELCOME = 1;
+    private static final String WRONG_NB_ARG = "Wrong number of arguments. Try again.";
+    private static final String UNKNOWN_CMD = "Unknown Command. Try again";
     private SurnameManager surnameManager;
 
     private int state = WAITING;
@@ -21,16 +23,13 @@ public class Protocol {
      * @return la string envoyée par le serveur
      */
     public String processInput(String theInput) {
-        Request request = new Request(theInput);
-        String theOutput = null;
-
-        if (state == WAITING) {
-            theOutput = "Welcome to our surname server. Here are the available commands : SAVE, UPDATE, DISPLAY," +
+        if (theInput.equals("WELCOME")){
+            return "Welcome to our surname server. Here are the available commands : SAVE, UPDATE, DISPLAY," +
                     " DELETE, STOP. " + "Please type your request.";
-            state = WELCOME;
-        } else if (state == WELCOME) {
-            theOutput = handle(request);
         }
+        Request request = new Request(theInput);
+        String theOutput = handle(request);
+
         return theOutput;
     }
 
@@ -71,13 +70,13 @@ public class Protocol {
     private String handle(Request request){
         if (request.getCommand() == null){
             System.out.println();
-            return "Unknown Command. Try again.";
+            return UNKNOWN_CMD;
         }
         int nbParam = request.getListParameters().size();
         switch(request.getCommand()){
             case SAVE: {
                 if (nbParam != 2)
-                    return "Wrong number of arguments. Try again.";
+                    return WRONG_NB_ARG;
 
                 return save(request.getValue("NAME"), request.getValue("SURNAME"));
             }
@@ -87,21 +86,21 @@ public class Protocol {
                     return update(request.getValue("NAME"), request.getValue("SURNAME"),
                             request.getValue("NEWSURNAME"));
 
-                return "Wrong number of arguments. Try again.";
+                return WRONG_NB_ARG;
             }
 
             case DISPLAY: {
                 if (nbParam == 0 || nbParam == 1)
                     return display(request.getValue("NAME"));
 
-                return "Wrong number of arguments. Try again.";
+                return WRONG_NB_ARG;
             }
 
             case DELETE: {
                 if (nbParam == 1 || nbParam == 2)
                     return delete(request.getValue("NAME"), request.getValue("SURNAME"));
 
-                return "Wrong number of arguments. Try again.";
+                return WRONG_NB_ARG;
             }
 
             case STOP: {
